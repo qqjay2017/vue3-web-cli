@@ -4,7 +4,8 @@
   "description": "",
   "private": true,
   "scripts": {
-    "release": "changeset version && changeset publish -r --no-git-checks"
+    "ci:version": "npx changeset version --silent",
+    "ci:publish": "changeset version && changeset publish -r --no-git-checks"
   },
   "keywords": [],
   "author": "huang",
