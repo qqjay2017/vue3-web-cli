@@ -4,7 +4,7 @@
   "description": "",
   "private": true,
   "scripts": {
-    "publish": "changeset version && changeset publish -r --access public"
+    "publish": "changeset version && changeset publish -r"
   },
   "keywords": [],
   "author": "huang",
