@@ -2,7 +2,7 @@ const os = require("os");
 
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const path = require("path");
-const resolveRoot = require("resolveRoot.js");
+const resolveRoot = require("./resolveRoot.js");
 /**
  *
  * Common Production Config
@@ -48,8 +48,8 @@ exports = module.exports = (options) => ({
             // main typescript compilation loader
             loader: require.resolve("ts-loader"),
             options: {
-                transpileOnly: true,
-                appendTsSuffixTo: ['\\.vue$'],
+              transpileOnly: true,
+              appendTsSuffixTo: ['\\.vue$'],
               /**
                * Increase build speed by disabling typechecking for the
                * main process and is required to be used with thread-loader

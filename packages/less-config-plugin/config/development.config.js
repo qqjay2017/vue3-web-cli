@@ -1,11 +1,11 @@
-
+const path = require("path");
 let postcssPresetEnv = require('postcss-preset-env');
 
-exports = module.exports = (options={}) => {
-  const baseCssConfig  = [
+exports = module.exports = (options = {}) => {
+  const baseCssConfig = [
     // compiles Less to CSS
-    "vue-style-loader",
-    "style-loader",
+    options.vue ? "vue-style-loader" : "style-loader",
+    // "style-loader",
     {
       loader: "css-loader",
       options: {
@@ -21,7 +21,7 @@ exports = module.exports = (options={}) => {
         postcssOptions: (loader) => {
           return {
             plugins: [
-              options.tailwindcss === true ? 'tailwindcss':null,
+              options.tailwindcss === true ? 'tailwindcss' : null,
               ['cnjm-postcss-px-to-viewport', {
                 viewportWidth: 750, // UI设计稿的宽度
                 unitPrecision: 4, // 转化精度，转换后保留位数
@@ -48,9 +48,7 @@ exports = module.exports = (options={}) => {
         },
       },
     },
-    {
-      loader: require.resolve("resolve-url-loader"),
-    },
+
   ]
   return {
     module: {
@@ -59,12 +57,20 @@ exports = module.exports = (options={}) => {
           test: /\.(less)$/,
           use: [
             ...baseCssConfig,
-            "less-loader",
+            {
+              loader: require.resolve("resolve-url-loader"),
+            },
+            {
+              loader: "less-loader",
+              options: {
+                sourceMap: true,
+              },
+            },
           ],
         },
         {
           test: /\.(css)$/,
-          use:baseCssConfig ,
+          use: baseCssConfig,
         },
       ],
     },

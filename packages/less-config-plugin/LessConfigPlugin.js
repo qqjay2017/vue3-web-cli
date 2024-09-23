@@ -1,4 +1,6 @@
-const defaultOptions = {};
+const defaultOptions = {
+  vue: true
+};
 
 class LessConfigPlugin {
   /**
