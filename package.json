@@ -1,5 +1,5 @@
 {
-  "name": "@webhb/webpack-config-plugin",
+  "name": "webpack-config-plugin",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
