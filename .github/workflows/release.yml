@@ -33,8 +33,8 @@ jobs:
           echo ::set-output name=changes::$(npx changeset version 2>&1 | grep -q 'No unreleased changesets found' && echo 'false' || echo 'true')
 
       - name: Create Release Pull Request
-        uses: changesets/action@v1
+        uses: changesets/action@main
         with:
-          version: pnpx changeset version
+          version: npx changeset version
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
