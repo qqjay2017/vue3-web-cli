@@ -1,5 +1,20 @@
 # @webhb/ts-config-plugin
 
+## 1.1.0
+
+### Minor Changes
+
+- c04d84a: 11
+- 8a7cd26: 12
+
+### Patch Changes
+
+- c4ec56c: 1111
+- 30e7c4e: 111
+- 5d02dd3: 1111
+- 3d01020: 1111
+- c4ec56c: 111
+
 ## 1.0.2
 
 ### Patch Changes
