@@ -4,7 +4,7 @@
   "description": "",
   "private": true,
   "scripts": {
-    "ci:version": "npx changeset version --silent",
+    "ci:version": "npx changeset  --silent",
     "ci:publish": "changeset version && changeset publish -r --no-git-checks"
   },
   "keywords": [],
