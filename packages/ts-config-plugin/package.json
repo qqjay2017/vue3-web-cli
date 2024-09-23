@@ -15,5 +15,8 @@
     "fork-ts-checker-webpack-plugin": "^9.0.2",
     "@vue/tsconfig": "^0.5.1",
     "ts-loader": "^9.5.1"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
