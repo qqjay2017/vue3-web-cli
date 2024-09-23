@@ -9,6 +9,7 @@
   "keywords": [],
   "author": "huang",
   "dependencies": {
+    "css-minimizer-webpack-plugin": "^6.0.0",
     "resolve-url-loader": "^5.0.0",
     "less": "^4.2.0",
     "less-loader": "^12.2.0",

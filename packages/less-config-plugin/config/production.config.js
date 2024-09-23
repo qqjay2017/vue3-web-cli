@@ -3,7 +3,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 let postcssPresetEnv = require('postcss-preset-env');
 
-exports = module.exports = (options={}) => {
+exports = module.exports = (options = {}) => {
   const baseCssConfig = [
     MiniCssExtractPlugin.loader,
     {
@@ -21,11 +21,10 @@ exports = module.exports = (options={}) => {
         postcssOptions: (loader) => {
           return {
             plugins: [
-              options.tailwindcss === true ? 'tailwindcss':null,
+              options.tailwindcss === true ? 'tailwindcss' : null,
               postcssPresetEnv({
                 browsers: 'last 5 version'
               }),
-              require("postcss-flexbugs-fixes"),
               require("autoprefixer")({
                 // flexbox: "no-2009" will add prefixes only for final and IE versions of specification.
                 // @see https://github.com/postcss/autoprefixer#disabling
@@ -36,23 +35,26 @@ exports = module.exports = (options={}) => {
         },
       },
     },
-    {
-      loader: require.resolve("resolve-url-loader"),
-    },
-    
+
+
   ]
- return  {
+  return {
     module: {
       rules: [
         {
           test: /\.(less)$/,
-  
+
           use: [
             ...baseCssConfig,
             {
+              loader: require.resolve("resolve-url-loader"),
+            },
+            {
               loader: "less-loader",
               options: {
+                sourceMap: true,
                 lessOptions: {
+
                   javascriptEnabled: true,
                 },
               },
@@ -61,7 +63,7 @@ exports = module.exports = (options={}) => {
         },
         {
           test: /\.(css)$/,
-  
+
           use: baseCssConfig,
         },
       ],
