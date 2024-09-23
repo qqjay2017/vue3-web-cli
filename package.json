@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "publish": "changeset version && changeset publish -r"
+    "publish": "changeset version && changeset publish -r --access public"
   },
   "keywords": [],
   "author": "huang",
