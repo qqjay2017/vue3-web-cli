@@ -1,0 +1,23 @@
+{
+  "name": "webpack-config-plugin",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "huang",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/codemirror": "^5.60.15",
+    "@types/lodash": "^4.17.7",
+    "@types/node": "^22.5.5",
+    "@types/nprogress": "^0.2.3",
+    "@types/path-browserify": "^1.0.3",
+    "@types/qs": "^6.9.16",
+    "@types/webpack-env": "^1.18.5",
+    "prettier": "^3.3.3"
+  }
+}
