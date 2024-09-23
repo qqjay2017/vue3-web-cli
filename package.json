@@ -4,7 +4,7 @@
   "description": "",
   "private": true,
   "scripts": {
-    "publish": "changeset version && changeset publish -r"
+    "release": "changeset version && changeset publish -r --no-git-checks"
   },
   "keywords": [],
   "author": "huang",
