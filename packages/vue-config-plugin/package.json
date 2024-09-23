@@ -1,8 +1,8 @@
 {
   "name": "@webhb/vue-config-plugin",
   "version": "1.0.1",
+  "private": true,
   "description": "vue-config-plugin",
-  "main": "index.js",
   "scripts": {},
   "peerDependencies": {
     "vue-template-compiler": "*",
