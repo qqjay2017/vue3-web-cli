@@ -2,6 +2,7 @@
   "name": "@webhb/vue-config-plugin",
   "version": "1.0.2",
   "description": "vue-config-plugin",
+  "main": "index.js",
   "scripts": {},
   "peerDependencies": {
     "vue-template-compiler": "*",
