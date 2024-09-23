@@ -1,7 +1,6 @@
 {
   "name": "@webhb/vue-config-plugin",
-  "version": "1.0.1",
-  "private": true,
+  "version": "1.0.2",
   "description": "vue-config-plugin",
   "scripts": {},
   "peerDependencies": {
