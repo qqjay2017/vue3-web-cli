@@ -1,5 +1,11 @@
 # @webhb/ts-config-plugin
 
+## 1.1.5
+
+### Patch Changes
+
+- 99e4542: 修复isProduction判断
+
 ## 1.1.4
 
 ### Patch Changes
