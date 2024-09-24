@@ -1,5 +1,11 @@
 # @webhb/asset-config-plugin
 
+## 1.1.4
+
+### Patch Changes
+
+- 501a99b: 新增terser-webpack-plugin
+
 ## 1.1.3
 
 ### Patch Changes
