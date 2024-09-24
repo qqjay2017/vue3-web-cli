@@ -1,5 +1,11 @@
 # @webhb/asset-config-plugin
 
+## 1.1.9
+
+### Patch Changes
+
+- 2da9fa3: 修复配置
+
 ## 1.1.8
 
 ### Patch Changes
