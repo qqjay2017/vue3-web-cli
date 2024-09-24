@@ -4,10 +4,13 @@ const HTMLPlugin = require('html-webpack-plugin')
 const resolveRoot = require('./resolveRoot')
 const VantResolver = require('@vant/auto-import-resolver').VantResolver
 const VantImports = require('@vant/auto-import-resolver').VantImports
-const { ProgressPlugin } = require("webpack")
+const { ProgressPlugin, DefinePlugin, BannerPlugin } = require("webpack")
+const CompressionPlugin = require("compression-webpack-plugin");
+
+const FileManagerPlugin = require('filemanager-webpack-plugin');
 
 
-const { DefinePlugin } = require('webpack')
+const dayjs = require('dayjs')
 
 const prefixRE = /^VUE_APP_/
 const prefixRE2 = /^VITE_/
@@ -19,7 +22,7 @@ function resolveClientEnv(options, raw) {
             env[key] = process.env[key]
         }
     })
-    env.PUBLIC_PATH = options.publicPath
+    env.PUBLIC_PATH = options.publicPath || process.env.PUBLIC_PATH;
 
     if (raw) {
         return env
@@ -44,21 +47,36 @@ exports = module.exports = (options) => ({
             {
                 test: /\.vue$/,
                 loader: "vue-loader",
+                options: {
+                    compilerOptions: {
+                        preserveWhitespace: true
+                    },
+                },
             },
             {
                 test: /\.m?jsx?$/,
                 exclude: (file) => /node_modules/.test(file) && !/\.vue\.js/.test(file),
-                use: ["babel-loader"],
+                use: [{
+                    loader: "babel-loader",
+                    options: {
+                        presets: ["@babel/preset-env",],
+                    },
+                },],
             },
             {
                 test: /\.tsx?$/,
                 use: [
-                    'babel-loader',
+                    {
+                        loader: "babel-loader",
+                        options: {
+                            presets: ["@babel/preset-env",],
+                        },
+                    },
                     {
                         loader: 'ts-loader',
                         options: {
                             transpileOnly: true,
-                            appendTsSuffixTo: ['\\.vue$'],
+                            appendTsSuffixTo: [/\.vue$/],
                             happyPackMode: true,
                         },
                     },
@@ -67,6 +85,28 @@ exports = module.exports = (options) => ({
         ],
     },
     plugins: [
+        options.archiveName && new FileManagerPlugin({
+
+            events: {
+                onEnd: {
+                    archive: [
+                        { source: resolveRoot('./dist'), destination: `${options.archiveName}-${dayjs().format('MMDDHHmm')}.zip` }
+                    ]
+                }
+            }
+
+
+        }),
+        new CompressionPlugin({
+            test: /\.js$|\.html$|\.css/, // 匹配文件名
+            threshold: 10240, // 超过10k进行压缩
+            deleteOriginalAssets: false // 是否删除源文件
+        }),
+
+        new webpack.BannerPlugin({
+            banner: `发布时间${dayjs().format('YYYY-MM-DD HH:mm:ss')}`,
+            include: /app/
+        }),
         new ProgressPlugin({
             activeModules: true,         // 默认false，显示活动模块计数和一个活动模块正在进行消息。
             entries: true,  			   // 默认true，显示正在进行的条目计数消息。
@@ -116,5 +156,5 @@ exports = module.exports = (options) => ({
                 ),
             },
         }),
-    ],
+    ].filter(Boolean),
 });

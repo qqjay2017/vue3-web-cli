@@ -57,45 +57,61 @@ class VueConfigPlugin {
         compiler.options.entry = compiler.options.entry || resolveRoot('./src/main.ts')
 
         compiler.options.cache = {
+            ...compiler.options.cache,
             type: "filesystem",
             buildDependencies: {
                 defaultWebpack: [resolveRoot('./node_modules/webpack/lib/')],
             },
-            ...compiler.options.cache,
+
         }
-        compiler.options.devtool = isProduction ? "source-map" : "cheap-module-source-map";
+        compiler.options.devtool = isProduction ? false : "cheap-module-source-map";
 
         compiler.options.output = {
+            ...compiler.options.output,
             clean: true,
             filename: isProduction ? 'static/js/[name].[contenthash:8].js' : 'static/js/bundle.js',
             pathinfo: !isProduction,
             path: resolveRoot("dist"),
             chunkFilename: isProduction ? "static/js/[name].[contenthash:8].chunk.js" : 'static/js/[name].chunk.js',
             assetModuleFilename: 'static/asset/[name].[hash][ext]',
-            publicPath: process.env.PUBLIC_URL || '/',
-            ...compiler.options.output
+            publicPath: process.env.PUBLIC_PATH || '/',
+
         }
         compiler.options.optimization = {
-            minimize: isProduction,
             ...compiler.options.optimization,
+            splitChunks: isProduction ? {
+                chunks: 'all',
+                cacheGroups: {
+                    commons: {
+                        name: 'chunk-commons',
+                        test: resolveRoot('src/components'), // can customize your rules
+                        minChunks: 3, //  minimum common number
+                        priority: 5,
+                        reuseExistingChunk: true
+                    },
+                    libs: {
+                        name: 'chunk-libs',
+                        chunks: 'initial', // only package third parties that are initially dependent
+                        test: /[\\/]node_modules[\\/]/,
+                        priority: 10
+                    }
+                }
+            } : undefined,
+            minimize: isProduction,
+
         }
-        compiler.options.devServer = {
-            historyApiFallback: true,
-            ...compiler.options.devServer
-        }
+
         compiler.options.resolve = {
+            ...compiler.options.resolve,
             alias: {
                 "@": resolveRoot("src"),
+                "src": resolveRoot("src"),
             },
             extensions: [".ts", ".tsx", ".js", ".json", '.jsx', '.vue', '.mjs'],
             // 告诉 webpack 解析模块时应该搜索哪些目录。
             modules: [resolveRoot("src"), "node_modules"],
-            ...compiler.options.resolve
+
         }
-
-
-
-
 
         const config = require("./config/index.js")(this.options);
         compiler.hooks.afterEnvironment.tap("VueConfigPlugin", () => {
