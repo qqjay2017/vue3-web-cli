@@ -41,6 +41,8 @@ loadEnv()
 loadEnv(process.env.NODE_ENV === 'production' ? "production" : 'development')
 
 
+const resolveRoot = require('./config/resolveRoot')
+
 
 
 
