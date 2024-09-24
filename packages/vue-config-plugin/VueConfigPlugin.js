@@ -63,46 +63,71 @@ class VueConfigPlugin {
             "@": resolveRoot("src"),
             "src": resolveRoot("src"),
         }
-        compiler.options.context = resolveRoot();
+
+
         compiler.options.resolve.extensions = [".ts", ".tsx", ".js", ".json", '.jsx', '.vue', '.mjs']
-        compiler.options.resolve.modules = [resolveRoot("src"), "node_modules"]
+
         compiler.options.output.clean = true
+
         compiler.options.output.pathinfo = !isProduction
         compiler.options.output.path = resolveRoot("dist")
         compiler.options.output.publicPath = process.env.PUBLIC_PATH || './'
         compiler.options.output.chunkFilename = isProduction ? "static/js/[name].[contenthash:8].chunk.js" : 'static/js/[name].chunk.js'
-        compiler.options.output.assetModuleFilename = 'static/asset/[name].[hash][ext]'
-        compiler.options.output.filename = isProduction ? 'static/js/[name].[contenthash:8].js' : 'static/js/bundle.js'
+        compiler.options.output.assetModuleFilename = 'static/asset/[name].[hash][ext]';
+        compiler.options.output.filename = isProduction ? 'static/js/[name].[contenthash:8].js' : 'static/js/bundle.js';
 
 
-        compiler.options.optimization.runtimeChunk = 'single';
+
         compiler.options.optimization.splitChunks = isProduction ? {
-
             chunks: 'all',
             cacheGroups: {
-                commons: {
-                    name: 'chunk-commons',
-                    test: resolveRoot('src/components'), // can customize your rules
-                    minChunks: 3, //  minimum common number
-                    priority: 5,
-                    reuseExistingChunk: true
+                lodash: {
+                    test: /[\\/]node_modules[\\/](lodash-es)[\\/]/,
+                    name: "lodash-es",
+                    chunks: "all",
+                    reuseExistingChunk: true,
+                    enforce: true,
                 },
+                vant: {
+                    test(module) {
+                        return (
+                            module.resource &&
+                            module.resource.includes("vant")
+                        );
+                    },
+                    name: "chunk-vant",
+                    chunks: "all",
+                    reuseExistingChunk: true,
+                    enforce: true,
+                },
+                babel: {
+                    test(module) {
+                        return module.resource && module.resource.includes("@babel");
+                    },
+                    name: "chunk-babel-runtime",
+                    chunks: "all",
+                    reuseExistingChunk: true,
+                    enforce: true,
+                },
+
                 libs: {
-                    name: 'chunk-libs',
-                    chunks: 'initial', // only package third parties that are initially dependent
+                    minChunks: 3,
+                    name: "chunk-libs",
                     test: /[\\/]node_modules[\\/]/,
-                    priority: 10
-                }
-            }
-        } : {};
+                    priority: 10,
+                    chunks: "initial", // only package third parties that are initially dependent
+                },
+            },
+
+        } : compiler.options.optimization.splitChunks;
         compiler.options.optimization.minimizer = isProduction ? [
-            ... (compiler.options.optimization.minimizer||[] ),
+            ... (compiler.options.optimization.minimizer || []),
             new TerserPlugin({
                 parallel: true,
             }),
         ] : [];
 
-        compiler.options.optimization.minimize= isProduction;
+        compiler.options.optimization.minimize = isProduction;
 
         const config = require("./config/index.js")(this.options);
         compiler.hooks.afterEnvironment.tap("VueConfigPlugin", () => {
