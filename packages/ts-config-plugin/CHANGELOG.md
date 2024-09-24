@@ -1,5 +1,11 @@
 # @webhb/ts-config-plugin
 
+## 1.1.6
+
+### Patch Changes
+
+- 01c7650: fix测试修报错复
+
 ## 1.1.5
 
 ### Patch Changes
