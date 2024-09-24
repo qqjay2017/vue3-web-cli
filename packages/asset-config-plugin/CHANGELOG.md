@@ -1,5 +1,11 @@
 # @webhb/asset-config-plugin
 
+## 1.1.8
+
+### Patch Changes
+
+- d37331b: 修复配置
+
 ## 1.1.7
 
 ### Patch Changes
