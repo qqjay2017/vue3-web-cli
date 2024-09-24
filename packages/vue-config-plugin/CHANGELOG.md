@@ -1,5 +1,12 @@
 # @webhb/vue-config-plugin
 
+## 1.1.1
+
+### Patch Changes
+
+- 10a1d30: 注入更多配置
+- f4c7f9d: 111
+
 ## 1.1.0
 
 ### Minor Changes
