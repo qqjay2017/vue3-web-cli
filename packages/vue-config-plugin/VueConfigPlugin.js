@@ -53,9 +53,12 @@ class VueConfigPlugin {
         this.options = Object.assign({}, options);
     }
     apply(compiler) {
-        const isProduction = this.options.mode === 'production'
-        compiler.options.context = compiler.options.context || process.cwd()
-        compiler.options.entry = compiler.options.entry || resolveRoot('./src/main.ts')
+        const isProduction =
+            this.options.mode !== undefined
+                ? this.options.mode === "production"
+                : compiler.options.mode === "production" || !compiler.options.mode;
+        compiler.options.context = process.cwd()
+        compiler.options.entry = resolveRoot('./src/main.ts')
 
         compiler.options.cache = {
             ...compiler.options.cache,
@@ -65,7 +68,7 @@ class VueConfigPlugin {
             },
 
         }
-        compiler.options.devtool = isProduction ? false : "cheap-module-source-map";
+        compiler.options.devtool = isProduction ? undefined : "cheap-module-source-map";
 
         compiler.options.output = {
             ...compiler.options.output,
