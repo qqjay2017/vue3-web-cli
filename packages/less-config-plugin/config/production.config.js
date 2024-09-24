@@ -22,6 +22,19 @@ exports = module.exports = (options = {}) => {
           return {
             plugins: [
               options.tailwindcss === true ? 'tailwindcss' : null,
+              ['cnjm-postcss-px-to-viewport', {
+                viewportWidth: 750, // UI设计稿的宽度
+                unitPrecision: 4, // 转化精度，转换后保留位数
+                viewportUnit: 'vmin', // 转换后的单位
+                fontViewportUnit: 'vmin', // 字体单位
+                unitToConvert: 'px', // 需要转换的单位
+                minPixelValue: 1, // 最小转换单位
+                customFun: ({ file }) => {
+                  // 这个自定义的方法是针对处理vant组件下的设计稿为375问题
+                  const designWidth = path.join(file).indexOf('vant') > -1 ? 375 : 750
+                  return designWidth
+                },
+              }],
               postcssPresetEnv({
                 browsers: 'last 5 version'
               }),
