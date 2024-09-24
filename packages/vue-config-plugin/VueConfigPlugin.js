@@ -57,74 +57,59 @@ class VueConfigPlugin {
             this.options.mode !== undefined
                 ? this.options.mode === "production"
                 : compiler.options.mode === "production" || !compiler.options.mode;
-        compiler.options.context = process.cwd()
-        compiler.options.entry = resolveRoot('./src/main.ts')
 
-        compiler.options.cache = {
-            ...compiler.options.cache,
-            type: "filesystem",
-            buildDependencies: {
-                defaultWebpack: [resolveRoot('./node_modules/webpack/lib/')],
-            },
-
+        compiler.options.resolve.alias = {
+            ...compiler.options.resolve.alias,
+            "@": resolveRoot("src"),
+            "src": resolveRoot("src"),
         }
-        compiler.options.devtool = isProduction ? undefined : "cheap-module-source-map";
+        compiler.options.context = resolveRoot();
+        compiler.options.resolve.extensions = [".ts", ".tsx", ".js", ".json", '.jsx', '.vue', '.mjs']
+        compiler.options.resolve.modules = [resolveRoot("src"), "node_modules"]
+        compiler.options.output.clean = true
+        compiler.options.output.pathinfo = !isProduction
+        compiler.options.output.path = resolveRoot("dist")
+        compiler.options.output.publicPath = process.env.PUBLIC_PATH || './'
+        compiler.options.output.chunkFilename = isProduction ? "static/js/[name].[contenthash:8].chunk.js" : 'static/js/[name].chunk.js'
+        compiler.options.output.assetModuleFilename = 'static/asset/[name].[hash][ext]'
+        compiler.options.output.filename = isProduction ? 'static/js/[name].[contenthash:8].js' : 'static/js/bundle.js'
 
-        compiler.options.output = {
-            ...compiler.options.output,
-            clean: true,
-            filename: isProduction ? 'static/js/[name].[contenthash:8].js' : 'static/js/bundle.js',
-            pathinfo: !isProduction,
-            path: resolveRoot("dist"),
-            chunkFilename: isProduction ? "static/js/[name].[contenthash:8].chunk.js" : 'static/js/[name].chunk.js',
-            assetModuleFilename: 'static/asset/[name].[hash][ext]',
-            publicPath: process.env.PUBLIC_PATH || '/',
 
-        }
-        compiler.options.optimization = {
-            ...compiler.options.optimization,
-            splitChunks: isProduction ? {
-                chunks: 'all',
-                cacheGroups: {
-                    commons: {
-                        name: 'chunk-commons',
-                        test: resolveRoot('src/components'), // can customize your rules
-                        minChunks: 3, //  minimum common number
-                        priority: 5,
-                        reuseExistingChunk: true
-                    },
-                    libs: {
-                        name: 'chunk-libs',
-                        chunks: 'initial', // only package third parties that are initially dependent
-                        test: /[\\/]node_modules[\\/]/,
-                        priority: 10
-                    }
+        compiler.options.optimization.runtimeChunk = 'single';
+        compiler.options.optimization.splitChunks = isProduction ? {
+
+            chunks: 'all',
+            cacheGroups: {
+                commons: {
+                    name: 'chunk-commons',
+                    test: resolveRoot('src/components'), // can customize your rules
+                    minChunks: 3, //  minimum common number
+                    priority: 5,
+                    reuseExistingChunk: true
+                },
+                libs: {
+                    name: 'chunk-libs',
+                    chunks: 'initial', // only package third parties that are initially dependent
+                    test: /[\\/]node_modules[\\/]/,
+                    priority: 10
                 }
-            } : undefined,
-            minimizer: isProduction ? [
-                new TerserPlugin({
-                    parallel: true,
-                }),
+            }
+        } : {};
+        compiler.options.optimization.minimizer = isProduction ? [
+            ... (compiler.options.optimization.minimizer||[] ),
+            new TerserPlugin({
+                parallel: true,
+            }),
+        ] : [];
 
-            ] : undefined,
-            minimize: isProduction,
-
-        }
-
-        compiler.options.resolve = {
-            ...compiler.options.resolve,
-            alias: {
-                "@": resolveRoot("src"),
-                "src": resolveRoot("src"),
-            },
-            extensions: [".ts", ".tsx", ".js", ".json", '.jsx', '.vue', '.mjs'],
-            // 告诉 webpack 解析模块时应该搜索哪些目录。
-            modules: [resolveRoot("src"), "node_modules"],
-
-        }
+        compiler.options.optimization.minimize= isProduction;
 
         const config = require("./config/index.js")(this.options);
         compiler.hooks.afterEnvironment.tap("VueConfigPlugin", () => {
+
+
+
+            compiler.options.devtool = isProduction ? false : "cheap-module-source-map";
             compiler.options.module.rules.push(...config.module.rules);
             config.plugins.forEach((plugin) => plugin.apply(compiler));
         });
