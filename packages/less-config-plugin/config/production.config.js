@@ -2,7 +2,7 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 let postcssPresetEnv = require('postcss-preset-env');
-
+const path = require("path");
 exports = module.exports = (options = {}) => {
   const baseCssConfig = [
     MiniCssExtractPlugin.loader,

@@ -79,6 +79,7 @@ class VueConfigPlugin {
 
 
         compiler.options.optimization.splitChunks = isProduction ? {
+            ...compiler.options.optimization.splitChunks,
             chunks: 'all',
             cacheGroups: {
                 lodash: {
