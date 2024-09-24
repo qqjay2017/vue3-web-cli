@@ -1,6 +1,6 @@
 {
   "name": "@webhb/vue-config-plugin",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "vue-config-plugin",
   "main": "index.js",
   "scripts": {},

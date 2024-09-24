@@ -1,5 +1,11 @@
 # @webhb/vue-config-plugin
 
+## 1.1.3
+
+### Patch Changes
+
+- 2b3e406: 添加更多配置
+
 ## 1.1.2
 
 ### Patch Changes
