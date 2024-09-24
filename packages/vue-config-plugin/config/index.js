@@ -75,8 +75,6 @@ exports = module.exports = (options) => ({
             profile: false,         	   // 默认false，告诉ProgressPlugin为进度步骤收集配置文件数据。
             dependencies: false,         // 默认true，显示正在进行的依赖项计数消息。
             dependenciesCount: 10000,
-
-
         }),
         new DefinePlugin({
             // vue3 feature flags <http://link.vuejs.org/feature-flags>
