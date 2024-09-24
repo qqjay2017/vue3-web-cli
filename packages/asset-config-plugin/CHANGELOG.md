@@ -1,5 +1,11 @@
 # @webhb/asset-config-plugin
 
+## 1.1.2
+
+### Patch Changes
+
+- e72e5da: 修复resolveRoot引入
+
 ## 1.1.1
 
 ### Patch Changes
