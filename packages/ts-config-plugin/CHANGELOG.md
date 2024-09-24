@@ -1,5 +1,11 @@
 # @webhb/ts-config-plugin
 
+## 1.1.10
+
+### Patch Changes
+
+- 04fa1a0: 优化配置
+
 ## 1.1.9
 
 ### Patch Changes
