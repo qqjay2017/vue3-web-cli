@@ -2,6 +2,7 @@ const path = require('path')
 const dotenv = require('dotenv')
 const dotenvExpand = require('dotenv-expand')
 
+const TerserPlugin = require("terser-webpack-plugin");
 
 function loadEnv(mode) {
     const basePath = path.resolve(process.cwd(), `.env${mode ? `.${mode}` : ``}`)
@@ -97,6 +98,12 @@ class VueConfigPlugin {
                     }
                 }
             } : undefined,
+            minimizer: isProduction ? [
+                new TerserPlugin({
+                    parallel: true,
+                }),
+
+            ] : undefined,
             minimize: isProduction,
 
         }

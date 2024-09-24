@@ -103,7 +103,7 @@ exports = module.exports = (options) => ({
             deleteOriginalAssets: false // 是否删除源文件
         }),
 
-        new webpack.BannerPlugin({
+        new BannerPlugin({
             banner: `发布时间${dayjs().format('YYYY-MM-DD HH:mm:ss')}`,
             include: /app/
         }),
