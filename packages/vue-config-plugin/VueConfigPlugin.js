@@ -126,11 +126,14 @@ class VueConfigPlugin {
             new TerserPlugin({
                 parallel: true,
             }),
-        ] : [];
+        ] :   compiler.options.optimization.minimizer ;
 
         compiler.options.optimization.minimize = isProduction;
 
-        const config = require("./config/index.js")(this.options);
+        const config = require("./config/index.js")({
+            ...this.options,
+            mode: isProduction ? "production" : "development",
+        });
         compiler.hooks.afterEnvironment.tap("VueConfigPlugin", () => {
 
 

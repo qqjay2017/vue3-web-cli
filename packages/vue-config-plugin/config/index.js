@@ -85,7 +85,7 @@ exports = module.exports = (options) => ({
         ],
     },
     plugins: [
-        options.archiveName && new FileManagerPlugin({
+        options.archiveName && options.mode === "production" && new FileManagerPlugin({
 
             events: {
                 onEnd: {
@@ -97,12 +97,11 @@ exports = module.exports = (options) => ({
 
 
         }),
-        new CompressionPlugin({
+        options.mode === "production" && new CompressionPlugin({
             test: /\.js$|\.html$|\.css/, // 匹配文件名
             threshold: 10240, // 超过10k进行压缩
             deleteOriginalAssets: false // 是否删除源文件
         }),
-
         new BannerPlugin({
             banner: `发布时间${dayjs().format('YYYY-MM-DD HH:mm:ss')}`,
             include: /app/
@@ -123,7 +122,6 @@ exports = module.exports = (options) => ({
             ...resolveClientEnv({}, false)
         }),
         new VueLoaderPlugin(),
-
         require('unplugin-auto-import/webpack').default({
             include: [
                 /\.[tj]sx?$/,
