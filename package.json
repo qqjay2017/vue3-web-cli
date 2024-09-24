@@ -1,0 +1,25 @@
+{
+  "name": "noname",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "ci:version1": "npx changeset  --silent",
+    "ci:version": "changeset version",
+    "ci:publish": "changeset version && changeset publish -r --no-git-checks"
+  },
+  "keywords": [],
+  "author": "huang",
+  "license": "ISC",
+  "devDependencies": {
+    "@changesets/cli": "^2.27.8",
+    "@types/codemirror": "^5.60.15",
+    "@types/lodash": "^4.17.7",
+    "@types/node": "^22.5.5",
+    "@types/nprogress": "^0.2.3",
+    "@types/path-browserify": "^1.0.3",
+    "@types/qs": "^6.9.16",
+    "@types/webpack-env": "^1.18.5",
+    "prettier": "^3.3.3"
+  }
+}

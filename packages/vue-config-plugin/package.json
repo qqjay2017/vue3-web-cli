@@ -1,0 +1,35 @@
+{
+  "name": "@webhb/vue-config-plugin",
+  "version": "1.1.0",
+  "description": "vue-config-plugin",
+  "main": "index.js",
+  "scripts": {},
+  "peerDependencies": {
+    "vue-template-compiler": "*",
+    "webpack-sources": "*"
+  },
+  "devDependencies": {
+    "vue": "^3.5.8",
+    "vue-router": "^4.4.5"
+  },
+  "dependencies": {
+    "html-webpack-plugin": "^5.6.0",
+    "dotenv": "^16.4.5",
+    "dotenv-expand": "^11.0.6",
+    "ts-loader": "9.5.1",
+    "@vant/auto-import-resolver": "^1.2.1",
+    "unplugin-auto-import": "^0.18.3",
+    "babel-loader": "^9.2.1",
+    "@babel/core": "^7.25.2",
+    "@babel/plugin-transform-runtime": "^7.25.4",
+    "@babel/preset-env": "^7.25.4",
+    "@vue/compiler-sfc": "^3.5.8",
+    "@vue/tsconfig": "^0.5.1",
+    "unplugin-vue-components": "^0.27.4",
+    "vue-loader": "^17.4.2",
+    "vue-tsc": "^2.1.6"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
