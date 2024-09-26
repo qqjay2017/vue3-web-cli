@@ -1,5 +1,11 @@
 # @webhb/ts-config-plugin
 
+## 1.1.13
+
+### Patch Changes
+
+- d47cba7: 注入timastap
+
 ## 1.1.12
 
 ### Patch Changes
