@@ -1,5 +1,11 @@
 # @webhb/asset-config-plugin
 
+## 1.1.12
+
+### Patch Changes
+
+- 31613ea: 111
+
 ## 1.1.11
 
 ### Patch Changes
