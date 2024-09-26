@@ -119,7 +119,9 @@ exports = module.exports = (options) => ({
             // vue3 feature flags <http://link.vuejs.org/feature-flags>
             __VUE_OPTIONS_API__: 'true',
             __VUE_PROD_DEVTOOLS__: 'false',
-            ...resolveClientEnv({}, false)
+            ...resolveClientEnv({
+                timestamp: options.timestamp
+            }, false)
         }),
         new VueLoaderPlugin(),
         require('unplugin-auto-import/webpack').default({
@@ -149,7 +151,9 @@ exports = module.exports = (options) => ({
             template: resolveRoot('public/index.html'),
             templateParameters: {
                 ...resolveClientEnv(
-                    {},
+                    {
+                        timestamp: options.timestamp
+                    },
                     true
                 ),
             },

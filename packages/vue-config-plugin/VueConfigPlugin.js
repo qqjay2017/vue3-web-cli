@@ -1,6 +1,8 @@
 const path = require('path')
 const dotenv = require('dotenv')
 const dotenvExpand = require('dotenv-expand')
+const dayjs = require('dayjs')
+const timestamp = dayjs().format('YYYYMMDDHHmmss')
 
 const TerserPlugin = require("terser-webpack-plugin");
 
@@ -126,13 +128,14 @@ class VueConfigPlugin {
             new TerserPlugin({
                 parallel: true,
             }),
-        ] :   compiler.options.optimization.minimizer ;
+        ] : compiler.options.optimization.minimizer;
 
         compiler.options.optimization.minimize = isProduction;
 
         const config = require("./config/index.js")({
             ...this.options,
             mode: isProduction ? "production" : "development",
+            timestamp,
         });
         compiler.hooks.afterEnvironment.tap("VueConfigPlugin", () => {
 
