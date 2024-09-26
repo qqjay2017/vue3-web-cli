@@ -6,7 +6,7 @@ const VantResolver = require('@vant/auto-import-resolver').VantResolver
 const VantImports = require('@vant/auto-import-resolver').VantImports
 const { ProgressPlugin, DefinePlugin, BannerPlugin } = require("webpack")
 const CompressionPlugin = require("compression-webpack-plugin");
-
+const { execSync } = require('child_process');
 const FileManagerPlugin = require('filemanager-webpack-plugin');
 
 
@@ -38,6 +38,20 @@ function resolveClientEnv(options = {}, raw) {
     }
 }
 
+
+function getArchiveName(name) {
+    if (name) {
+        return name
+    }
+    try {
+        const branchName = execSync('git rev-parse --abbrev-ref HEAD').toString().trim();
+        const arr = branchName.split('/');
+        return arr.length > 2 ? arr.slice(1).join('') : arr.join('')
+    } catch (error) {
+        return "main123"
+    }
+
+}
 
 
 
@@ -87,12 +101,12 @@ exports = module.exports = (options) => ({
         ],
     },
     plugins: [
-        options.archiveName && options.mode === "production" && new FileManagerPlugin({
+        getArchiveName(options.archiveName) && options.mode === "production" && new FileManagerPlugin({
 
             events: {
                 onEnd: {
                     archive: [
-                        { source: resolveRoot('./dist'), destination: `${options.archiveName}-${dayjs().format('MMDDHHmm')}.zip` }
+                        { source: resolveRoot('./dist'), destination: `${getArchiveName(options.archiveName)}-${dayjs().format('MMDDHHmm')}.zip` }
                     ]
                 }
             }
