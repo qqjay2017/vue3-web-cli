@@ -1,5 +1,11 @@
 # @webhb/less-config-plugin
 
+## 1.1.14
+
+### Patch Changes
+
+- 44d0a89: feat: archiveName默认取分支名称
+
 ## 1.1.13
 
 ### Patch Changes
