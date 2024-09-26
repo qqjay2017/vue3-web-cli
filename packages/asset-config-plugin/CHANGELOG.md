@@ -1,5 +1,11 @@
 # @webhb/asset-config-plugin
 
+## 1.1.11
+
+### Patch Changes
+
+- 9c2463b: 注入timestamp
+
 ## 1.1.10
 
 ### Patch Changes
