@@ -15,8 +15,10 @@ const dayjs = require('dayjs')
 const prefixRE = /^VUE_APP_/
 const prefixRE2 = /^VITE_/
 
-function resolveClientEnv(options, raw) {
-    const env = {}
+function resolveClientEnv(options = {}, raw) {
+    const env = {
+        ...options
+    }
     Object.keys(process.env).forEach((key) => {
         if (prefixRE.test(key) || key === 'NODE_ENV' || prefixRE2.test(key)) {
             env[key] = process.env[key]
