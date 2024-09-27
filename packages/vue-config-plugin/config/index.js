@@ -135,6 +135,7 @@ exports = module.exports = (options) => ({
             // vue3 feature flags <http://link.vuejs.org/feature-flags>
             __VUE_OPTIONS_API__: 'true',
             __VUE_PROD_DEVTOOLS__: 'false',
+            __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: 'false',
             ...resolveClientEnv({
                 timestamp: options.timestamp
             }, false)
