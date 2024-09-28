@@ -64,6 +64,7 @@ class VueConfigPlugin {
             ...compiler.options.resolve.alias,
             "@": resolveRoot("src"),
             "src": resolveRoot("src"),
+            'vue$': 'vue/dist/vue.esm-bundler.js',
         }
 
 
