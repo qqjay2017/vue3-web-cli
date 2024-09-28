@@ -1,5 +1,11 @@
 # @webhb/less-config-plugin
 
+## 1.1.15
+
+### Patch Changes
+
+- 2cd1876: 修改resolve
+
 ## 1.1.14
 
 ### Patch Changes
