@@ -12,15 +12,15 @@ const FileManagerPlugin = require('filemanager-webpack-plugin');
 
 const dayjs = require('dayjs')
 
-const prefixRE = /^VUE_APP_/
-const prefixRE2 = /^VITE_/
+
 
 function resolveClientEnv(options = {}, raw) {
     const env = {
         ...options
     }
-    Object.keys(process.env).forEach((key) => {
-        if (prefixRE.test(key) || key === 'NODE_ENV' || prefixRE2.test(key)) {
+    Object.keys(process.env).forEach((key='') => {
+        const lowKey = key.toLowerCase()
+        if ( key === 'NODE_ENV' ||lowKey.indexOf('vite')>-1||lowKey.indexOf('vue')>-1||lowKey.indexOf('app')>-1) {
             env[key] = process.env[key]
         }
     })
