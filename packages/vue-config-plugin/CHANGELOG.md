@@ -1,5 +1,11 @@
 # @webhb/vue-config-plugin
 
+## 1.1.16
+
+### Patch Changes
+
+- a54c700: 修改复制标准
+
 ## 1.1.15
 
 ### Patch Changes
