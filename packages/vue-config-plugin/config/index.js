@@ -9,6 +9,7 @@ const CompressionPlugin = require("compression-webpack-plugin");
 const { execSync } = require('child_process');
 const FileManagerPlugin = require('filemanager-webpack-plugin');
 
+const CopyPlugin = require('copy-webpack-plugin')
 
 const dayjs = require('dayjs')
 
@@ -72,12 +73,27 @@ exports = module.exports = (options) => ({
             {
                 test: /\.m?jsx?$/,
                 exclude: (file) => /node_modules/.test(file) && !/\.vue\.js/.test(file),
-                use: [{
-                    loader: "babel-loader",
-                    options: {
-                        presets: ["@babel/preset-env",],
+                use: [
+                    {
+                        loader: "babel-loader",
+                        options: {
+                            presets: [
+                                "@babel/preset-typescript",
+                                [
+                                    "@babel/preset-env",
+                                    {
+                                        useBuiltIns: 'usage', // adds specific imports for polyfills when they are used in each file.
+                                        modules: false, // preserve ES modules.
+                                        corejs: { version: 3, proposals: true }, // enable polyfilling of every proposal supported by core-js.
+                                      },
+                                ]
+                            ],
+                            plugins: [
+                                '@babel/plugin-transform-runtime',
+                            ]
+                        },
                     },
-                },],
+            ],
             },
             {
                 test: /\.tsx?$/,
@@ -85,16 +101,29 @@ exports = module.exports = (options) => ({
                     {
                         loader: "babel-loader",
                         options: {
-                            presets: ["@babel/preset-env",],
+                            presets: [
+                                "@babel/preset-typescript",
+                                [
+                                    "@babel/preset-env",
+                                    {
+                                        useBuiltIns: 'usage', // adds specific imports for polyfills when they are used in each file.
+                                        modules: false, // preserve ES modules.
+                                        corejs: { version: 3, proposals: true }, // enable polyfilling of every proposal supported by core-js.
+                                      },
+                                ]
+                            ],
+                            plugins: [
+                                '@babel/plugin-transform-runtime',
+                            ]
                         },
                     },
                     {
                         loader: 'ts-loader',
                         options: {
                             transpileOnly: true,
-                            appendTsSuffixTo: [/\.vue$/],
+                            appendTsSuffixTo: ['\\.vue$'],
                             happyPackMode: true,
-                        },
+                          },
                     },
                 ],
             },
@@ -152,7 +181,7 @@ exports = module.exports = (options) => ({
             imports: [
                 'vue',
                 'vue-router',
-                'pinia',
+                // 'pinia',
                 '@vueuse/core',
                 VantImports(),
             ],
@@ -175,5 +204,17 @@ exports = module.exports = (options) => ({
                 ),
             },
         }),
+        options.mode === "production" &&   new CopyPlugin({
+            patterns: [
+              {
+                from: resolveRoot('public'),
+                toType: 'dir',
+                globOptions: {
+                  ignore: ['.DS_Store', '**/index.html'],
+                },
+                noErrorOnMissing: true,
+              },
+            ],
+          }),
     ].filter(Boolean),
 });
