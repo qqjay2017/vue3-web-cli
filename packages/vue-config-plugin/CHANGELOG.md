@@ -1,5 +1,11 @@
 # @webhb/vue-config-plugin
 
+## 1.1.17
+
+### Patch Changes
+
+- b5688b6: 修复兼容性
+
 ## 1.1.16
 
 ### Patch Changes
