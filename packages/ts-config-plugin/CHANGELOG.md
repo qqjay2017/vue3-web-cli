@@ -1,5 +1,11 @@
 # @webhb/ts-config-plugin
 
+## 1.1.18
+
+### Patch Changes
+
+- ab67c5d: 支持jsx插件
+
 ## 1.1.17
 
 ### Patch Changes

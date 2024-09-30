@@ -1,6 +1,6 @@
 {
   "name": "@webhb/ts-config-plugin",
-  "version": "1.1.17",
+  "version": "1.1.18",
   "description": "ts-config-plugin",
   "main": "index.js",
   "scripts": {},
