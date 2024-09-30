@@ -89,6 +89,7 @@ exports = module.exports = (options) => ({
                                 ]
                             ],
                             plugins: [
+                                "@vue/babel-plugin-jsx",
                                 '@babel/plugin-transform-runtime',
                             ]
                         },
@@ -113,6 +114,7 @@ exports = module.exports = (options) => ({
                                 ]
                             ],
                             plugins: [
+                                "@vue/babel-plugin-jsx",
                                 '@babel/plugin-transform-runtime',
                             ]
                         },
