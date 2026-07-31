@@ -19,7 +19,7 @@
     "autoprefixer": "^10.4.20",
     "cnjm-postcss-px-to-viewport": "^1.0.1",
     "mini-css-extract-plugin": "^2.9.0",
-    "postcss": "^8.4.47",
+    "postcss": "^8.5.18",
     "postcss-html": "^1.7.0",
     "postcss-loader": "^8.1.1",
     "sass": "^1.79.3",
